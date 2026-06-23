@@ -41,7 +41,7 @@ export default function ProductCard({ product }: Props) {
             className="px-6 py-3 border-0 rounded text-base font-medium cursor-pointer transition duration-200 ease-in-out hover:-translate-y-0.5 active:translate-y-0 no-underline inline-block text-center bg-blue-500 text-white hover:bg-blue-700"
             // onClick={() => addToCart(product.id)}
           >
-            Add to Card Add to Cart
+            Add to Card
             {/* {productQuantityLabel} */}
           </button>
         </div>
