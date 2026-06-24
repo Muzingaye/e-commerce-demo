@@ -19,7 +19,7 @@ export default function ProductCard({ product }: Props) {
       <img
         src={product.image}
         alt={product.name}
-        className="w-full h-[250px] object-cover"
+        className="w-full h-[200px] object-cover"
       />
 
       <div className="p-6">
