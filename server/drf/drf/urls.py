@@ -6,7 +6,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 
 
 # router =  routers.DefaultRouter()
-# router.register(f'products/', api_views.product_list)
+# router.register(f'products', api_views.product_list)
 
 
 urlpatterns = [

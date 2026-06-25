@@ -1,5 +1,6 @@
-from django.contrib import admin
 from api.models import Order, OrderItem, User
+from django.contrib import admin
+
 
 class OrderItemInline(admin.TabularInline):
     model = OrderItem

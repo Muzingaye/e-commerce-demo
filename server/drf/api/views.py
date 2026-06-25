@@ -1,23 +1,37 @@
+from api.models import Order, Product
+from api.serialzers import (OrderSerializer, ProductInfoSerializer,
+                            ProductSerializer)
 from django.db.models import Max
 from django.http import JsonResponse
-from django.shortcuts  import get_object_or_404
-from api.serialzers import ProductSerializer, OrderSerializer, ProductInfoSerializer
-from api.models import Product, Order
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework import generics
-from rest_framework.permissions import ( IsAuthenticated, IsAdminUser, AllowAny)
-from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from . filters import ProductFilter
+from rest_framework import filters, generics, viewsets
+from rest_framework.decorators import api_view
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from .filters import InStoreFilterBackend, OrderFilter, ProductFilter
+
 
 class ProductListCreateApiView(generics.ListCreateAPIView):
-    queryset = Product.objects.filter(stock__gt=0)
+    queryset = Product.objects.order_by('pk')
     serializer_class = ProductSerializer
 
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [
+        DjangoFilterBackend, 
+        filters.SearchFilter, 
+        filters.OrderingFilter,
+        InStoreFilterBackend
+        ]
     filterset_class = ProductFilter
-
+    search_fields = ['=name','description']
+    ordering_fields = ['name', 'price', 'stock']
+    pagination_class = PageNumberPagination
+    pagination_class.page_size = 5
+    pagination_class.page_query_param = 'pagenum'
+    
     def get_permissions(self):
         self.permission_classes = [AllowAny]
         if self.request.method == 'POST':
@@ -35,26 +49,39 @@ class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
             self.permission_classes = [IsAdminUser]
         return super().get_permissions()
 
+class OrderViewSet(viewsets.ModelViewSet):
 
-class OrderListApiView(generics.ListAPIView):
     queryset =  Order.objects.prefetch_related(
         'items__product'
         ).all()
     serializer_class = OrderSerializer
+    permission_classes = [AllowAny]
+
+    filter_backends = [
+        DjangoFilterBackend, 
+        ]
+    filterset_class = OrderFilter
 
 
-class UserOrderListApiView(generics.ListAPIView):
-    queryset =  Order.objects.prefetch_related(
-        'items__product'
-        ).all()
-    serializer_class = OrderSerializer
-    permission_classes = [IsAuthenticated]
+# class OrderListApiView(generics.ListAPIView):
+#     queryset =  Order.objects.prefetch_related(
+#         'items__product'
+#         ).all()
+#     serializer_class = OrderSerializer
 
 
-    def get_queryset(self):
-        user = self.request.user
-        qs = super().get_queryset()
-        return qs.filter(user=user)
+# class UserOrderListApiView(generics.ListAPIView):
+#     queryset =  Order.objects.prefetch_related(
+#         'items__product'
+#         ).all()
+#     serializer_class = OrderSerializer
+#     permission_classes = [IsAuthenticated]
+
+
+#     def get_queryset(self):
+#         user = self.request.user
+#         qs = super().get_queryset()
+#         return qs.filter(user=user)
 
 
 
