@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 django-extensions = "*"
-django-filter = "==24.2"
+django-filter = "*"
 djangorestframework = "*"
 djangorestframework-jsonapi = "==7.0.2"
 python-dotenv = "*"
