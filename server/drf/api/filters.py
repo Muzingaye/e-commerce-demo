@@ -22,5 +22,5 @@ class OrderFilter(django_filters.FilterSet):
         model = Order
         fields = {
             'status':  ['exact'],
-            'created' : ['exact', 'lt', 'gt']
+            'created_at' : ['exact', 'lt', 'gt']
             }
