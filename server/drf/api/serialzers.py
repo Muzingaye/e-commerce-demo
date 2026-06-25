@@ -26,9 +26,8 @@ class ProductSerializer(serializers.ModelSerializer):
         return Product(**validated_data)
 
     def update(self, instance, validated_data):
-        instance.email = validated_data.get('email', instance.email)
-        instance.content = validated_data.get('content', instance.content)
-        instance.created = validated_data.get('created', instance.created)
+        instance.id = validated_data.get('id', instance.id)
+        instance.name = validated_data.get('name', instance.name)
         return instance
     
 
