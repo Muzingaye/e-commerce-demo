@@ -41,8 +41,8 @@ POST http://127.0.0.1:8000/api/token/ HTTP/1.1
 Content-Type: application/json 
 
 {
-    "username": "admin",
-    "password": "test"
+    "username": "muzi",
+    "password": "password"
 }
 
 ###
@@ -59,3 +59,29 @@ Content-Type: application/json
 ###
 GET http://127.0.0.1:8000/user-orders/ HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgyMzA3MzAwLCJpYXQiOjE3ODIzMDcwMDAsImp0aSI6ImJhNmM5MmJmNjk4YjRmMjJhYWJiMmEzY2QzMzJjMzFiIiwidXNlcl9pZCI6MX0.ZQPd3lAW4ua4qd5MF_yG7ckY4SJixPhSpJbdOBPWiIo
+
+
+###
+GET http://127.0.0.1:8000/orders/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgyNDA1NzA4LCJpYXQiOjE3ODI0MDU0MDgsImp0aSI6IjkzOTExYjJjNWExZTQ1NmFiMzc3MjQ0Njk3NWViOTViIiwidXNlcl9pZCI6Mn0.7TDHHcbNEcgA_QDSbvISJb-F_WkDNibZU2tmFkq8pes
+
+
+
+###
+POST http://127.0.0.1:8000/orders/ HTTP/1.1
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgyNDEwMTk5LCJpYXQiOjE3ODI0MDk4OTksImp0aSI6ImIyN2QwOGE3NmMyMTQzMDY5YjcyZDI3NWUxMzZlZDI4IiwidXNlcl9pZCI6Mn0.clPTslsA-US6WSz06vJtcLDQEhyv2HtezKZHPvqJOVg
+
+{
+    "status": "Pending",
+    "items" : [
+        {
+        "product": 2,
+        "quantity": 2
+        },
+        {
+        "product": 3,
+        "quantity": 1
+        }
+    ]
+}
