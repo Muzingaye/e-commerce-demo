@@ -6,6 +6,9 @@ from django.db.models import Max
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_headers
 from rest_framework import filters, generics, viewsets
 from rest_framework.decorators import action, api_view
 from rest_framework.pagination import PageNumberPagination
@@ -32,6 +35,18 @@ class ProductListCreateApiView(generics.ListCreateAPIView):
     pagination_class = PageNumberPagination
     pagination_class.page_size = 5
     pagination_class.page_query_param = 'pagenum'
+    
+
+    @method_decorator(cache_page(60 * 15 * 2, key_prefix=['product_list']))
+    @method_decorator(vary_on_headers("Authorization"))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+    
+
+    def get_queryset(self):
+        import time
+        time.sleep(2)
+        return super().get_queryset()
     
     def get_permissions(self):
         self.permission_classes = [AllowAny]
