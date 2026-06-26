@@ -9,7 +9,7 @@
     @apply max-w-[1200px] mx-auto px-8 flex justify-between items-center flex-wrap gap-4;
   }
 
-  navbar-brand {
+  .navbar-brand {
     @apply text-2xl font-bold text-gray-800 no-underline gap-4;
   }
 
@@ -38,5 +38,26 @@
 
   .btn-danger {
     @apply bg-red-600 text-white hover:bg-red-700;
+  }
+
+  .page {
+    @apply flex py-8;
+  }
+
+  .container {
+    @apply max-w-[1200px] mx-auto px-8;
+  }
+
+  .home-hero {
+    @apply text-center py-16 px-8 max-w-[800px] mx-auto;
+  }
+
+  .page-title {
+    @apply text-3xl mb-8 text-gray-800;
+  }
+
+  .product-grid {
+    @apply grid gap-8 mt-8;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
 }
