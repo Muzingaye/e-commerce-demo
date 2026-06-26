@@ -10,10 +10,33 @@
   }
 
   navbar-brand {
-    @apply text-2xl font-bold text-gray-800 no-underline;
+    @apply text-2xl font-bold text-gray-800 no-underline gap-4;
   }
 
   .navbar-link {
     @apply text-gray-800 no-underline font-medium gap-4 transition-colors duration-200 hover:text-blue-600;
+  }
+
+  .navbar-auth {
+    @apply flex items-center gap-4;
+  }
+  .navbar-auth-links {
+    @apply flex gap-2;
+  }
+
+  .btn {
+    @apply inline-block px-6 py-3 rounded text-base font-medium text-center no-underline cursor-pointer transition-all duration-200 hover:-translate-y-px active:translate-y-0;
+  }
+
+  .btn-primary {
+    @apply bg-blue-600 text-white hover:bg-blue-700;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-200 text-gray-800 hover:bg-gray-300;
+  }
+
+  .btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-700;
   }
 }

@@ -9,26 +9,20 @@ const Navbar = () => {
         </Link>
 
         <div className="navbar-links">
-          <Link to="/" className="navbar-link">
+          <Link to="/" className="btn navbar-link">
             Home
           </Link>
-          <Link to="/checkout" className="navbar-link">
+          <Link to="/checkout" className="btn navbar-link">
             Cart
           </Link>
         </div>
 
-        <div className="flex items-center gap-4">
-          <div className="flex gap-2">
-            <Link
-              to="/auth"
-              className="py-3 px-6 border-0 rounded text-base font-medium cursor-pointer transition duration-200 no-underline inline-block text-center hover:-translate-y-[1px] transition-transform active:translate-y-0 hover:-translate-y-[1px] transition-transform"
-            >
+        <div className="navbar-auth">
+          <div className="navbar-auth-links">
+            <Link to="/auth" className="btn btn-secondary">
               Login
             </Link>
-            <Link
-              to="/auth"
-              className="py-3 px-6 border-0 rounded text-base font-medium cursor-pointer transition duration-200 no-underline inline-block text-center hover:-translate-y-[1px] transition-transform active:translate-y-0 hover:-translate-y-[1px] transition-transform"
-            >
+            <Link to="/auth" className="btn btn-primary">
               Sign Up
             </Link>
           </div>
