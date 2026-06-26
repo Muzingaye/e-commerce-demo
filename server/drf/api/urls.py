@@ -13,5 +13,5 @@ urlpatterns = [
 
 
 router =  DefaultRouter()
-router.register(f'orders', views.OrderViewSet)
+router.register(f'orders', views.OrderViewSet, basename='order')
 urlpatterns += router.urls

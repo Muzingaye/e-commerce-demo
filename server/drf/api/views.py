@@ -112,9 +112,6 @@ class OrderViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-
-
-
 class ProductInfoView(APIView):
    def get(self, request):
        products = Product.objects.all();
@@ -125,7 +122,6 @@ class ProductInfoView(APIView):
          })
        return Response(serializer.data)
    
-
 
 class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
