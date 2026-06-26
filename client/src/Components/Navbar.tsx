@@ -2,26 +2,17 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div className="bg-white shadow-md py-4 sticky top-0 z-[100]">
-      <div className="max-w-[1200px] mx-auto px-8 flex justify-between items-center flex-wrap gap-4">
-        <Link
-          to="/"
-          className="text-2xl font-bold text-gray-800 no-underline hover:text-blue-500"
-        >
+    <div className="navbar">
+      <div className="navbar-container">
+        <Link to="/" className="navbar-band">
           Muzi-ShopHub
         </Link>
 
-        <div className="flex gap-6 items-center">
-          <Link
-            to="/"
-            className="ftext-[#333] no-underline font-medium transition-colors duration-200"
-          >
+        <div className="navbar-links">
+          <Link to="/" className="navbar-link">
             Home
           </Link>
-          <Link
-            to="/checkout"
-            className="text-[#333] no-underline font-medium transition-colors duration-200"
-          >
+          <Link to="/checkout" className="navbar-link">
             Cart
           </Link>
         </div>

@@ -10,14 +10,14 @@ const Home: React.FC = () => {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch("http://127.0.0.1:8000/products");
+        const response = await fetch("http://127.0.0.1:8000/products/");
 
         if (!response.ok) {
           throw new Error("Failed to fetch products");
         }
 
         const data: Product[] = await response.json();
-        setProducts(data);
+        setProducts(data.results);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Unknown error");
       } finally {

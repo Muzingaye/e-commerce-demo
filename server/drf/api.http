@@ -70,7 +70,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 ###
 POST http://127.0.0.1:8000/orders/ HTTP/1.1
 Content-Type: application/json 
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgyNDEwMTk5LCJpYXQiOjE3ODI0MDk4OTksImp0aSI6ImIyN2QwOGE3NmMyMTQzMDY5YjcyZDI3NWUxMzZlZDI4IiwidXNlcl9pZCI6Mn0.clPTslsA-US6WSz06vJtcLDQEhyv2HtezKZHPvqJOVg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgyNDExNDM3LCJpYXQiOjE3ODI0MTExMzcsImp0aSI6IjRmNWZlZjU5MzdhZDQ1NGQ5ZmE1YzVkOTU5ZTc2NDcyIiwidXNlcl9pZCI6Mn0.0u0dh8sbRIh9TNl2A53Auk063fPPGzvO34N-0SlEYvY
 
 {
     "status": "Pending",
@@ -85,3 +85,30 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
         }
     ]
 }
+
+
+###
+PUT http://127.0.0.1:8000/orders/aea7b635-ee3d-4f9b-b690-47ce0afae095/ HTTP/1.1
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgyNDEyMDQ3LCJpYXQiOjE3ODI0MTE3NDcsImp0aSI6Ijg4NjlhOGVhMTk2ZTQwNWZiMWRlMDc0MmQwODFmOTUzIiwidXNlcl9pZCI6Mn0.EgEDw-iBMqH6gr5ET3557xknRcYpS6kRH0QeJsm_z4s
+
+{
+    "status": "Pending",
+    "items" : [
+        {
+        "product": 2,
+        "quantity": 4
+        },
+        {
+        "product": 3,
+        "quantity": 1
+        }
+    ]
+}
+
+
+###
+
+DELETE http://127.0.0.1:8000/orders/aea7b635-ee3d-4f9b-b690-47ce0afae095/ HTTP/1.1
+Content-Type: application/json 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgyNDEyMDQ3LCJpYXQiOjE3ODI0MTE3NDcsImp0aSI6Ijg4NjlhOGVhMTk2ZTQwNWZiMWRlMDc0MmQwODFmOTUzIiwidXNlcl9pZCI6Mn0.EgEDw-iBMqH6gr5ET3557xknRcYpS6kRH0QeJsm_z4s

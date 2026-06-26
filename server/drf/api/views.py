@@ -1,6 +1,7 @@
-from api.models import Order, Product
+from api.models import Order, Product, User
 from api.serialzers import (OrderCreateSerializer, OrderSerializer,
-                            ProductInfoSerializer, ProductSerializer)
+                            ProductInfoSerializer, ProductSerializer,
+                            UserSerializer)
 from django.db.models import Max
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -69,7 +70,7 @@ class OrderViewSet(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         
-        if self.action == 'create' or self.request.method == 'POST':
+        if self.action == 'create' or self.action =='update': #self.request.method == 'POST':
             return OrderCreateSerializer
         return super().get_serializer_class()
     def get_queryset(self):
@@ -102,3 +103,10 @@ class ProductInfoView(APIView):
             'max_price': products.aggregate(max_price=Max('price'))['max_price']
          })
        return Response(serializer.data)
+   
+
+
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    pagination_class = None

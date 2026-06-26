@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import Home from "./pages/Home";
-import Auth from "./pages/Auth";
+// import Auth from "./pages/Auth";
 
 function App() {
   return (
