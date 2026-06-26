@@ -61,6 +61,7 @@ class ProductListCreateApiView(generics.ListCreateAPIView):
 class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    # lookup_url_kwargs = 'product_id'
 
     def get_permissions(self):
         self.permission_classes =[AllowAny]
