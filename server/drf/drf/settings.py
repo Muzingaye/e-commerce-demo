@@ -126,7 +126,20 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 100
+    'PAGE_SIZE': 100,
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        # 'rest_framework.throttling.ScopedRateThrottle',
+        # 'api.throttles.BurstRateThrottle',
+        # 'api.throttles.SustainedRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '2/min',
+        'products': '2',
+        'orders': '4/min',
+        # 'burst': '10/minutes',
+        # 'sustained': '15/hours',
+    }
 
 }
 SPECTACULAR_SETTINGS = {
@@ -134,7 +147,7 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'A simple Product & order API practice for Django REST Framework',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
-}
+} 
 
 CACHES = {
     "default": {

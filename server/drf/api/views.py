@@ -15,11 +15,14 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.throttling import ScopedRateThrottle
 
 from .filters import InStoreFilterBackend, OrderFilter, ProductFilter
 
 
 class ProductListCreateApiView(generics.ListCreateAPIView):
+    throttle_scope = 'products'
+    throttle_class = [ScopedRateThrottle]
     queryset = Product.objects.order_by('pk')
     serializer_class = ProductSerializer
 
@@ -66,6 +69,8 @@ class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         return super().get_permissions()
 
 class OrderViewSet(viewsets.ModelViewSet):
+
+    throttle_scope = 'orders'
 
     queryset =  Order.objects.prefetch_related(
         'items__product'
