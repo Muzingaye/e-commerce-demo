@@ -60,4 +60,19 @@
     @apply grid gap-8 mt-8;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
+
+  .product-card {
+    @apply bg-white rounded-lg overflow-hidden shadow-md transition-all duration-200 hover:-translate-y-1 shadow-lg;
+  }
+
+  .product-card-image {
+    @apply w-full h-[200px] object-cover;
+  }
+  .product-card-name {
+    @apply text-xl mb-2 text-gray-800;
+  }
+
+  .product-card-price {
+    @apply text-2xl font-bold text-blue-600 mb-4;
+  }
 }
