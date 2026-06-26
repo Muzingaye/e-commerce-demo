@@ -47,26 +47,26 @@ class ProductAPITestCase(APITestCase):
         self.assertEqual(resp.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(Product.objects.filter(pk=self.product.pk).exists())
 
-# class UserOrderTestCase(TestCase):
-#     def setUp(self):
-#         user1 = User.objects.create_user(username='user1', password='test')
-#         user2 = User.objects.create_user(username='user2', password='test')
-#         Order.objects.create(user=user1)
-#         Order.objects.create(user=user1)
-#         Order.objects.create(user=user2)
-#         Order.objects.create(user=user2)
+class UserOrderTestCase(TestCase):
+    def setUp(self):
+        user1 = User.objects.create_user(username='user1', password='test')
+        user2 = User.objects.create_user(username='user2', password='test')
+        Order.objects.create(user=user1)
+        Order.objects.create(user=user1)
+        Order.objects.create(user=user2)
+        Order.objects.create(user=user2)
 
-#     def test_user_order_endpoint_retrieves_only_authenticate_user_order(self):
-#         user = User.objects.get(username='user2')
-#         self.client.force_login(user)
-#         response  = self.client.get(reverse('orders'))
+    def test_user_order_endpoint_retrieves_only_authenticate_user_order(self):
+        user = User.objects.get(username='user2')
+        self.client.force_login(user)
+        response  = self.client.get(reverse('orders'))
 
-#         assert response.status_code == status.HTTP_200_OK
-#         orders = response.json()
-#         self.assertTrue(all(order['user'] == user.id for order in orders))
-#         # print(data)
+        assert response.status_code == status.HTTP_200_OK
+        orders = response.json()
+        self.assertTrue(all(order['user'] == user.id for order in orders))
+        # print(data)
 
 
-#     def test_user_order_list_unauthenticated(self):
-#         response  = self.client.get(reverse('orders'))
-#         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+    def test_user_order_list_unauthenticated(self):
+        response  = self.client.get(reverse('orders'))
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
