@@ -30,6 +30,7 @@ pillow = "*"
 django-silk = "*"
 isort = "*"
 redis = {extras = ["hiredis"], version = "*"}
+djoser = "*"
 
 [dev-packages]
 
