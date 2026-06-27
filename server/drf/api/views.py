@@ -2,6 +2,7 @@ from api.models import Order, Product, User
 from api.serialzers import (OrderCreateSerializer, OrderSerializer,
                             ProductInfoSerializer, ProductSerializer,
                             UserSerializer)
+from . tasks import send_order_confirmation_email
 from django.db.models import Max
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -87,7 +88,8 @@ class OrderViewSet(viewsets.ModelViewSet):
 
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        order = serializer.save(user=self.request.user)
+        send_order_confirmation_email.delay(order.order_id, self.request.email)
 
     def get_serializer_class(self):
         

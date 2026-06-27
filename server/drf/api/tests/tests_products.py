@@ -20,8 +20,3 @@ class ProductAPITestCase(APITestCase):
         resp = self.client.get(self.url)
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(resp.data['name', self.product.name])
-
-
-
-
-

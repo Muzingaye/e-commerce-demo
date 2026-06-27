@@ -114,6 +114,9 @@ class OrderSerializer(serializers.ModelSerializer):
     items =  OrderItemSerializer(many=True, read_only=True)
     total_price = serializers.SerializerMethodField()
 
+    # user = serializers.PrimaryKeyRelatedField(
+    #     queryset= get_user_model().object().all()
+    # )
 
     def get_total_price(self, obj):
         order_items = obj.items.all()
