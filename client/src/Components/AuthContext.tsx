@@ -12,8 +12,7 @@ type AuthContextType = {
   logout: () => void;
 };
 
-// export const AuthContext = createContext<AuthContextType | null>(null);
-export const AuthContext = createContext<AuthContextType | null>(null);
+const AuthContext = createContext<AuthContextType | null>(null);
 
 type Props = {
   children: ReactNode;
@@ -66,4 +65,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       {children}
     </AuthContext.Provider>
   );
+}
+
+export function useAuth() {
+  const context = useContext(AuthContext);
+
+  return context;
 }
