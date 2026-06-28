@@ -6,85 +6,64 @@ type AuthResult = {
 };
 
 type AuthContextType = {
-  user: User;
+  user: User | null;
   signUp: (email: string, password: string) => AuthResult;
   login: (email: string, password: string) => AuthResult;
   logout: () => void;
 };
 
-const AuthContext = createContext<AuthContextType | null>(null);
+// export const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<AuthContextType | null>(null);
 
 type Props = {
   children: ReactNode;
 };
 
-const AuthProvider: FC<Props> = ({ children }) => {
-  const [user, setUser] = useState<User>(() => {
-    const storedEmail = localStorage.getItem("currentUserEmail");
-    return storedEmail ? { email: storedEmail } : null;
-  });
+export default function AuthProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<User>(null);
 
-  function signUp(email: string, password: string): AuthResult {
-    const users = JSON.parse(localStorage.getItem("users") || "[]") as {
-      email: string;
-      password: string;
-    }[];
+  function signUp(username: string, email: string, password: string) {
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
 
     if (users.find((u) => u.email === email)) {
       return { success: false, error: "Email already exists" };
     }
 
-    const newUser = { email, password };
+    const newUser = { username, email, password };
     users.push(newUser);
 
     localStorage.setItem("users", JSON.stringify(users));
     localStorage.setItem("currentUserEmail", email);
 
     setUser({ email });
-
     return { success: true };
   }
 
-  function login(email: string, password: string): AuthResult {
-    const users = JSON.parse(localStorage.getItem("users") || "[]") as {
-      email: string;
-      password: string;
-    }[];
+  function login(username: string, password: string): AuthResult {
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
 
     const foundUser = users.find(
-      (u) => u.email === email && u.password === password,
+      (u: User) => u.username === username && u.password === password,
     );
 
     if (!foundUser) {
-      return { success: false, error: "Invalid email or password" };
+      return { success: false, error: "Invalid username or password" };
     }
 
-    localStorage.setItem("currentUserEmail", email);
-    setUser({ email });
+    localStorage.setItem("currentUserEmail", username);
+    setUser(foundUser);
 
     return { success: true };
   }
 
-  function logout(): void {
+  function logout() {
     localStorage.removeItem("currentUserEmail");
     setUser(null);
   }
 
   return (
-    <AuthContext.Provider value={{ signUp, login, logout, user }}>
+    <AuthContext.Provider value={{ user, signUp, logout, login }}>
       {children}
     </AuthContext.Provider>
   );
-};
-
-export default AuthProvider;
-
-export function useAuth(): AuthContextType {
-  const context = useContext(AuthContext);
-
-  //   if (!context) {
-  //     // throw new Error("useAuth must be used within an AuthProvider");
-  //   }
-
-  //   return context;
 }
