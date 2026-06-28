@@ -25,10 +25,10 @@ export default function ProductCard({ product }: Props) {
       <div className="p-6">
         <h3 className="product-card-name">{product.name}</h3>
 
-        <p className="product-card-price">${product.price}</p>
+        <p className="product-card-price">R{product.price}</p>
 
         <div className="flex gap-2">
-          <Link className="btn btn-secondary" to={`/products/${product.id}`}>
+          <Link className="btn btn-secondary" to={`/products/{product.id}`}>
             View Details
           </Link>
 
