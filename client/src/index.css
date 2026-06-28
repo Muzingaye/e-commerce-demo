@@ -110,4 +110,24 @@
   .auth-link {
     @apply text-blue-500 font-medium hover:underline;
   }
+  .product-detail {
+    @apply grid grid-cols-2 gap-12 rounded-lg bg-white p-8 shadow-md;
+  }
+
+  .product-detail-image {
+    @apply h-96 w-full rounded-lg object-cover;
+  }
+  .product-detail-content {
+  }
+
+  .product-detail-name {
+    @apply text-2xl mb-4 text-gray-800;
+  }
+  .product-detail-price {
+    @apply text-2xl font-bold text-blue-600 mb-6;
+  }
+
+  .product-detail-description {
+    @appy text-base text-gray-600 leading-8 mb-8;
+  }
 }
