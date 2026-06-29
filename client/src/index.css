@@ -130,4 +130,41 @@
   .product-detail-description {
     @appy text-base text-gray-600 leading-8 mb-8;
   }
+
+  .checkout-container {
+    @apply grid grid-cols-1 gap-8 mt-8 lg:grid-cols-[2fr_1fr];
+  }
+
+  .checkout-items {
+    @apply bg-white p-8 rounded-lg shadow-md;
+  }
+
+  .checkout-section-title {
+    @apply text-2xl mb-6 text-gray-800;
+  }
+  .checkout-item {
+    @apply flex gap-4 py-6 border-b border-gray-200;
+  }
+
+  .checkout-item:last-child {
+    @apply last:border-b-0;
+  }
+
+  .checkout-item-image {
+    @apply w-24 h-24 object-cover rounded;
+  }
+  .checkout-item-details {
+    @apply flex-1;
+  }
+
+  .checkout-item-name {
+    @apply text-lg mb-2 text-gray-800;
+  }
+
+  .checkout-item-price {
+    @apply text-sm text-gray-600;
+  }
+  .checkout-item-controls {
+    @apply flex flex-col items-end gap-2;
+  }
 }

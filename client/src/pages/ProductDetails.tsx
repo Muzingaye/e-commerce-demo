@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import type { Product } from "../models/product";
+import { ApiProduct } from "../api/product";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -11,11 +12,11 @@ const ProductDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function fetchProductsById(id: number) {
+    async function loadProduct() {
       try {
-        const respdonse = await fetch(`http://127.0.0.1:8000/products/${id}/`);
+        const api = new ApiProduct();
 
-        const response = await fetch(`http://127.0.0.1:8000/products/${id}/`);
+        const response = await api.fetchProductById(Number(id));
         if (!response.ok) {
           throw new Error("Failed to fetch products");
         }
@@ -31,7 +32,7 @@ const ProductDetails = () => {
         setLoading(false);
       }
     }
-    fetchProductsById(Number(id));
+    loadProduct();
   }, [id]);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
