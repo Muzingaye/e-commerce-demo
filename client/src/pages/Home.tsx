@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import type { Product } from "../models/product";
 import ProductCard from "../Components/ProductCard";
+import { ApiProduct } from "../api/product";
 
 const Home: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -10,13 +11,15 @@ const Home: React.FC = () => {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch("http://127.0.0.1:8000/products/");
+        const api = new ApiProduct();
 
-        if (!response.ok) {
+        const response = await api.fetchProducts();
+
+        if (!response) {
           throw new Error("Failed to fetch products");
         }
 
-        const data: Product[] = await response.json();
+        const data: Product[] = await response;
         setProducts(data.results);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Unknown error");

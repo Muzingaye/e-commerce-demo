@@ -21,7 +21,7 @@ const ProductDetails = () => {
           throw new Error("Failed to fetch products");
         }
 
-        const data: Product = await response.json();
+        const data = await response;
         if (!data) {
           navigate("/");
         }
@@ -47,7 +47,7 @@ const ProductDetails = () => {
           <div className="product-detail-content">
             <h1 className="product-detail-name">{product.name}</h1>
             <p className="product-detail-price">{product.price}</p>
-            <p className="product-detail-description">{product.description}</p>
+            {/* <p className="product-detail-description">{product.description}</p> */}
 
             <button className="btn btn-primary">Add to Card</button>
           </div>
