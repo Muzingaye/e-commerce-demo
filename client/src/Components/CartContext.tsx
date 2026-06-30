@@ -44,14 +44,20 @@ export default function CartProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  function getCardItemsWithProducts() {
+  async function getCartItemsWithProducts() {
     const api = new ApiProduct();
-    return cartItems
-      .map((item) => ({
-        ...item,
-        product: api.fetchProductById(item.id),
-      }))
-      .filter((item) => item.product);
+
+    const items = await Promise.all(
+      cartItems.map(async (item) => {
+        const product = await api.fetchProductById(item.id);
+
+        return {
+          ...item,
+          product,
+        };
+      }),
+    );
+    return items;
   }
 
   function removeFromCart(productId: number): void {
@@ -62,21 +68,24 @@ export default function CartProvider({ children }: { children: ReactNode }) {
   function updateQuantity(productId: number, quantity: number): number {
     if (quantity <= 0) {
       removeFromCart(productId);
+      return;
     }
     setCartItems(
       cartItems.map((item) =>
-        item.id === product ? { ...item, quantity } : item,
+        item.id === productId ? { ...item, quantity } : item,
       ),
     );
   }
 
-  function getCartTotal() {
-    const total = cartItems.reduce((total, item) => {
-      const product = new ApiProduct().fetchProductById(item.id);
-      return total + (product ? product.price * product.quantity : 0);
-    }, 0);
+  async function getCartTotal() {
+    const results = await Promise.all(
+      cartItems.map(async (item) => {
+        const product = await new ApiProduct().fetchProductById(item.id);
 
-    return total;
+        return Number(product.price) * item.quantity;
+      }),
+    );
+    return results.reduce((sum, value) => sum + value, 0);
   }
 
   function clearCart() {
@@ -88,7 +97,7 @@ export default function CartProvider({ children }: { children: ReactNode }) {
       value={{
         cartItems,
         addToCart,
-        getCardItemsWithProducts,
+        getCartItemsWithProducts,
         removeFromCart,
         updateQuantity,
         getCartTotal,

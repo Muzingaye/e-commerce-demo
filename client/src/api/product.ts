@@ -17,12 +17,12 @@ export class ApiProduct {
   }
 
   async fetchProductById(id: number): Promise<Product> {
-    const response = await fetch(`${API_URL}/product/${id}/`);
-    console.log(response.json(), "Muzi");
+    const response = await fetch(`${API_URL}/products/${id}/`);
 
     if (!response.ok) {
-      throw new Error("Failed to fetch product");
+      throw new Error(`Failed to fetch product: ${response.status}`);
     }
-    return await response.json();
+    const data = await response.json();
+    return data;
   }
 }

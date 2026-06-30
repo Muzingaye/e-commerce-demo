@@ -1,16 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useCart } from "../Components/CartContext";
 
 export const Checkout = () => {
   const {
-    getCardItemsWithProducts,
+    getCartItemsWithProducts,
     getCartTotal,
     updateQuantity,
     removeFromCart,
     clearCart,
   } = useCart();
-  const cartItems = getCardItemsWithProducts();
-  const total = getCartTotal();
+
+  const [cartItems, setCartItems] = useState<any[]>([]);
+  const [total, setTotal] = useState<number>(0);
+
+  useEffect(() => {
+    async function loadCartItems() {
+      const items = await getCartItemsWithProducts();
+      setCartItems(items);
+    }
+
+    loadCartItems();
+  }, [getCartItemsWithProducts]);
+
+  useEffect(() => {
+    async function loadTotal() {
+      const val = await getCartTotal();
+      setTotal(val);
+    }
+    loadTotal();
+  }, [cartItems]);
 
   function placeOrder() {
     //TODO send this to an api.
@@ -25,10 +43,10 @@ export const Checkout = () => {
             <div className="checkout-items">
               <h2 className="checkout-section-title">Order Summary</h2>
               {cartItems.map((item) => (
-                <div className="checkout-item">
+                <div className="checkout-item" key={item.id}>
                   <img
-                    src="{item.image} "
-                    alt="{item.name}"
+                    src={item.image}
+                    alt={item.name}
                     className="checkout-item-image"
                   />
 
@@ -58,7 +76,7 @@ export const Checkout = () => {
                     </div>
 
                     <p className="checkout-item total">
-                      R{(item.product.price * item.quantity).toFixed(2)}
+                      R{(item.price * item.quantity).toFixed(2)}
                     </p>
 
                     <button
@@ -76,13 +94,13 @@ export const Checkout = () => {
               <h2 className="checkout-section-title">Total</h2>
               <div className="checkout-total">
                 <p className="checkout-total-label">Subtotal</p>
-                <p className="checkout-total-value">{total.toFixed(2)} </p>
+                {/* <p className="checkout-total-value">{total.toFixed(2)} </p> */}
               </div>
 
               <div className="checkout-total">
                 <p className="checkout-total-label">Total:</p>
                 <p className="checkout-total-value checkout-total-final">
-                  {total.toFixed(2)}
+                  {/* {total.toFixed(2)} */}R{Number(total).toFixed(2)}
                 </p>
               </div>
               <button
