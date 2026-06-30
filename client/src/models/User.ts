@@ -1,6 +1,7 @@
-export type User = {
+export interface User {
   id: number;
   username: string;
-  emailAddress: string;
+  emailAddress: string | null;
   password: string;
-} | null;
+  role: "user" | "admin";
+}

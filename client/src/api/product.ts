@@ -2,9 +2,7 @@ import type { Product } from "../models/product";
 import { API_URL } from "../config";
 
 export class ApiProduct {
-  constructor(private product?: Product) {
-    this.product = product;
-  }
+  constructor(private product?: Product) {}
 
   async fetchProducts(): Promise<Product> {
     try {
