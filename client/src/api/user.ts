@@ -1,5 +1,6 @@
 import type { User } from "../models/User";
 import { API_URL } from "../config";
+import { ApiClient } from "./apiClient";
 
 export class ApiUser {
   base_url: string | null = "";
@@ -7,15 +8,21 @@ export class ApiUser {
     this.base_url = base_url ?? API_URL;
   }
 
-  async login(data: User): Promise<User> {
+  async login(data: User): Promise<User | null> {
     try {
-      console.log(base_url);
-      console.log(`${data.username} {data.email} {data.password}`);
-      const resp = await fetch(`${this.base_url}/users/`);
+      const api = new ApiClient(this.base_url, () =>
+        localStorage.getItem("token"),
+      );
 
-      const user = resp.filter((u) => username == data.usern))
+      const query = api.get<User[]>("/users/");
+
+      const user = query.find(
+        (u) => u.username === data.username && u.password === data.password,
+      );
+      return user ?? null;
     } catch (err) {
       console.log(err);
+      return null;
     }
   }
 }

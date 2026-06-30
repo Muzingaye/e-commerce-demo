@@ -13,7 +13,7 @@ export class ApiClient {
   async get<T>(endpoint: string): Promise<T> {
     const token = this.getToken();
 
-    const response = await fetch(`${this.baseUrl}${endpoint}`, {
+    const resp = await fetch(`${this.baseUrl}${endpoint}`, {
       headers: {
         "Content-Type": "application/json",
         ...(token && {
@@ -22,11 +22,11 @@ export class ApiClient {
       },
     });
 
-    if (!response.ok) {
-      throw new Error(`Request failed: ${response.status}`);
+    if (!resp.ok) {
+      throw new Error(`Request failed: ${resp.status}`);
     }
 
-    return response.json as Promise<T>;
+    return resp.json as Promise<T>;
   }
 
   async post<T>(endpoint: string, body: unknown): Promise<T> {
