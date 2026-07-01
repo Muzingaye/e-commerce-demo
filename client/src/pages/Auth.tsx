@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../Components/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 
 type AuthMode = "signup" | "login";
 
@@ -18,21 +19,30 @@ export default function Auth() {
     formState: { errors },
   } = useForm();
 
-  function onSubmit(data) {
-    setError(null);
-    let res;
-    if (mode === "signup") {
-      res = signUp(data.username, data.email, data.password);
-    } else {
-      res = login(data.username, data.password);
-    }
-    if (res.success) {
-      navigate("/");
-    } else {
-      setError(res.error);
-    }
-  }
+  const authMutation = useMutation({
+    mutationFn: async (data: any) => {
+      if (mode === "signup") {
+        return await signUp(data.username, data.email, data.password);
+      } else {
+        return await login(data.username, data.password);
+      }
+    },
+    onSuccess: (res) => {
+      if (res.success) {
+        navigate("/");
+      } else {
+        setError(res.error);
+      }
+    },
+    onError: () => {
+      setError("Something went wrong");
+    },
+  });
 
+  function onSubmit(data: any) {
+    setError(null);
+    authMutation.mutate(data);
+  }
   return (
     <div className="page">
       <div className="container">

@@ -1,4 +1,4 @@
-import { ApiClient } from "../api/apiClient";
+import { ApiClient } from "../api/controller";
 import { ApiUser } from "../api/user";
 import type { User } from "../models/User";
 import {

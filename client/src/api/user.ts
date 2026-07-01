@@ -1,6 +1,6 @@
 import type { User } from "../models/User";
 import { API_URL } from "../config";
-import { ApiClient } from "./apiClient";
+import { ApiClient } from "./controller";
 
 export class ApiUser {
   base_url: string | null = "";

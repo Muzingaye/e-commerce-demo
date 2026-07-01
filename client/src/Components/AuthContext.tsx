@@ -1,5 +1,14 @@
-import { createContext, useState, useContext, ReactNode, FC } from "react";
+import {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  FC,
+  useEffect,
+  useLayoutEffect,
+} from "react";
 import type { User } from "../models/User";
+import { ApiClient } from "../api/controller";
 type AuthResult = {
   success: boolean;
   error?: string;
@@ -20,6 +29,25 @@ type Props = {
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User>(null);
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    const fetchMe = async () => {
+      try {
+        const api = new ApiClient();
+
+        const resp = await api.get<string>("/api/token/refresh/");
+        setToken(resp.data.accessToken);
+      } catch {
+        setToken(null);
+      }
+    };
+    fetchMe();
+  }, []);
+
+  useLayoutEffect(() => {
+    // const authInterceptor = a
+  });
 
   function signUp(username: string, email: string, password: string) {
     const users = JSON.parse(localStorage.getItem("users") || "[]");

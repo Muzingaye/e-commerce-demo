@@ -79,6 +79,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         ).all()
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
+    # permission_classes = [AllowAny]
 
     filter_backends = [
         DjangoFilterBackend, 

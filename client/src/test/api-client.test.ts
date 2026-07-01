@@ -1,5 +1,5 @@
 import { describe, beforeEach, afterEach, it, expect, jest } from "@jest/globals";
-import { ApiClient } from "../api/apiClient";
+import { ApiClient } from "../api/controller";
 import { API_URL } from "../config";
 
 describe("ApiClient", () => {

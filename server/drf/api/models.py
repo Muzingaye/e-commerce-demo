@@ -55,7 +55,4 @@ class OrderItem(models.Model):
         return f"Order {self.quantity} x {self.product.name} in Order {self.order.order_id}"
     
 
-     
-
-
-
+    
